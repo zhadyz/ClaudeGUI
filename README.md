@@ -16,6 +16,18 @@ ClaudeGUI gives you the best of both worlds:
 
 If you're already comfortable with the CLI, you probably don't need this. But if you want Claude Code's capabilities without living in a terminal, here you go.
 
+## ⚠️ Important Warning
+
+**This app launches Claude Code CLI with the `--dangerously-skip-permissions` flag by default.**
+
+This means Claude can read, write, and execute files **without asking for confirmation**. This is the whole point - autonomous workflows - but it also means:
+
+- Claude can modify or delete files in your working directory
+- Claude can run shell commands on your system
+- You should only use this in directories where you're okay with that
+
+If you're not comfortable with this, don't use this app. Use Claude Desktop or the regular CLI instead.
+
 ## Disclaimer
 
 **This is NOT affiliated with Anthropic.** It's just a wrapper around their CLI tool. "Claude" is Anthropic's trademark.
