@@ -1,0 +1,477 @@
+/* ClaudeGUI - Exact Claude Desktop Styling */
+
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Claude Dark theme - exact from screenshot */
+  --bg-primary: #292524;
+  --bg-secondary: #1a1918;
+  --bg-tertiary: #363433;
+  --bg-input: #292524;
+  --bg-hover: #3a3836;
+  --bg-user-bubble: #3d3b39;
+  --bg-code-block: #0d1117;
+
+  --text-primary: #eeeeee;
+  --text-secondary: #bfbfbf;
+  --text-tertiary: #9a9a9a;
+  --text-muted: #6b6b6b;
+
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+
+  /* Claude's official Crail orange - brand color */
+  --accent-orange: #C15F3C;
+  --accent-orange-hover: #d46d4a;
+  --accent-orange-dim: rgba(193, 95, 60, 0.15);
+
+  /* Muted accent colors for Claude style */
+  --accent-green: #52a573;
+  --accent-green-bg: rgba(82, 165, 115, 0.15);
+  --accent-red: #b85c5c;
+  --accent-red-bg: rgba(184, 92, 92, 0.15);
+  --accent-blue: #5c8ec4;
+  --accent-purple: #9575ba;
+
+  /* Diff colors matching Claude Desktop (GitHub-style) */
+  --diff-add-bg: #1a3327;
+  --diff-add-text: #7ee787;
+  --diff-remove-bg: #3d1a1e;
+  --diff-remove-text: #f85149;
+  --diff-line-num: #6e7681;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  /* Claude uses serif fonts for content, sans for UI */
+  --font-serif: 'GT Alpina', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Fira Code', 'Fira Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms cubic-bezier(0.165, 0.85, 0.45, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar - thin and subtle like Claude */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Selection - warm orange like Claude */
+::selection {
+  background: rgba(174, 86, 48, 0.3);
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Shimmer effect for current task indicator */
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.current-task-text {
+  animation: shimmer 2s linear infinite;
+}
+
+.task-indicator-icon {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Streaming cursor - smooth blinking */
+.streaming-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+.animate-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+/* Slow pulse for awaiting response indicator */
+@keyframes pulseSlow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+}
+
+.pulse-slow {
+  animation: pulseSlow 2s ease-in-out infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Drag region for frameless window */
+.drag-region {
+  -webkit-app-region: drag;
+}
+
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* Code styling - Claude style */
+code {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  background: var(--bg-tertiary);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  color: var(--accent-orange);
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: var(--text-primary);
+}
+
+/* Links - Claude style */
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Message content styling - Claude uses serif for responses */
+.message-content {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Markdown content - optimize for smooth streaming */
+.markdown-content {
+  /* GPU acceleration and layout isolation */
+  will-change: contents;
+  contain: layout style;
+  transform: translateZ(0); /* Force GPU layer */
+}
+
+/* Smooth text streaming animation */
+@keyframes textAppear {
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.markdown-content p,
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content ul,
+.markdown-content ol,
+.markdown-content li,
+.markdown-content blockquote {
+  /* Smooth appearance transition during streaming */
+  animation: textAppear 0.3s ease-out forwards;
+}
+
+/* Tool block running state - pulsing glow */
+@keyframes toolGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(193, 95, 60, 0);
+  }
+  50% {
+    box-shadow: 0 0 8px 2px rgba(193, 95, 60, 0.15);
+  }
+}
+
+.tool-block-running {
+  animation: toolGlow 2s ease-in-out infinite;
+}
+
+/* Streaming text - smooth appearance */
+.streaming-text {
+  /* GPU acceleration for smooth updates */
+  will-change: contents;
+  transform: translateZ(0);
+}
+
+/* Chat scroll container - GPU accelerated smooth scroll */
+.chat-scroll-container {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  transform: translateZ(0); /* GPU acceleration */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Smooth fade when switching between streaming and markdown */
+.markdown-content {
+  animation: fadeIn 0.15s ease-out;
+}
+
+.message-content p {
+  margin-bottom: 12px;
+}
+
+.message-content p:last-child {
+  margin-bottom: 0;
+}
+
+.message-content ul,
+.message-content ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+.message-content li {
+  margin-bottom: 6px;
+}
+
+.message-content blockquote {
+  border-left: 3px solid var(--accent-orange);
+  padding-left: 16px;
+  margin: 12px 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Inline code in messages */
+.message-content code {
+  background: rgba(174, 86, 48, 0.15);
+  color: var(--accent-orange);
+  font-size: 0.9em;
+}
+
+/* User message bubble styling */
+.user-message {
+  background: var(--bg-user-bubble);
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+}
+
+/* Button base styles - Claude tactile feedback */
+button {
+  transition: all var(--transition-fast);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Input styles */
+textarea, input {
+  font-family: var(--font-sans);
+}
+
+textarea:focus, input:focus {
+  outline: none;
+}
+
+/* KaTeX Math Styling - Dark Theme */
+.katex {
+  font-size: 1.1em;
+  color: var(--text-primary);
+}
+
+.katex-display {
+  margin: 16px 0;
+  padding: 12px 16px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+}
+
+.katex-display > .katex {
+  text-align: left;
+}
+
+/* Make inline math slightly smaller */
+.katex:not(.katex-display .katex) {
+  font-size: 1em;
+}
+
+/* Fix KaTeX colors for dark mode */
+.katex .mord,
+.katex .mbin,
+.katex .mrel,
+.katex .mopen,
+.katex .mclose,
+.katex .mpunct,
+.katex .minner {
+  color: var(--text-primary);
+}
+
+/* Matrix and other structures */
+.katex .mtable,
+.katex .mtr,
+.katex .mtd {
+  color: var(--text-primary);
+}
+
+/* =============================================================================
+   QUANTUM STREAM RENDERER - HIGH REFRESH RATE OPTIMIZATIONS
+   Supports up to 360Hz displays with buttery-smooth text streaming
+   ============================================================================= */
+
+/* GPU-accelerated message content for smooth streaming */
+.message-content {
+  transform: translateZ(0);
+  will-change: contents;
+  contain: layout style;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Chat scroll container optimizations */
+.chat-scroll-container {
+  transform: translateZ(0);
+  will-change: scroll-position;
+  contain: strict;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Smooth scrolling on high-refresh displays */
+  scroll-behavior: auto; /* Let JS handle smooth scrolling */
+}
+
+/* Content visibility optimization for off-screen content */
+.chat-scroll-container > * {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 100px;
+}
+
+/* Streaming text specific optimizations */
+.streaming-text {
+  transform: translateZ(0);
+  will-change: contents;
+  contain: layout style paint;
+  text-rendering: optimizeSpeed;
+}
+
+/* Character appearance animation for smooth mode (60-144Hz) */
+.char-appear {
+  display: inline;
+  animation: charFadeIn 0.08s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes charFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(1px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* High refresh rate mode (240Hz+) - no animations, pure speed */
+@media (prefers-reduced-motion: no-preference) {
+  .streaming-text.high-refresh {
+    /* Skip animations at high refresh rates - RAF smoothness is enough */
+    animation: none !important;
+  }
+}
+
+/* Reduce motion preference support */
+@media (prefers-reduced-motion: reduce) {
+  .message-content,
+  .streaming-text,
+  .char-appear {
+    animation: none !important;
+    transition: none !important;
+  }
+}

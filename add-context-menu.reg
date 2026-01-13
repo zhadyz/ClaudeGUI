@@ -1,0 +1,28 @@
+Windows Registry Editor Version 5.00
+
+; ClaudeGUI - Right-click context menu integration
+; Right-click this file and select "Merge" to add context menu entries
+
+; Context menu for folders (right-click on a folder)
+[HKEY_CLASSES_ROOT\Directory\shell\OpenWithClaudeGUI]
+@="Open with ClaudeGUI"
+"Icon"="C:\\Users\\eclip\\Desktop\\CLAUDE_GUI\\assets\\icons\\icon.ico"
+
+[HKEY_CLASSES_ROOT\Directory\shell\OpenWithClaudeGUI\command]
+@="\"C:\\Users\\eclip\\Desktop\\CLAUDE_GUI\\node_modules\\electron\\dist\\electron.exe\" \"C:\\Users\\eclip\\Desktop\\CLAUDE_GUI\" --cwd \"%V\""
+
+; Context menu for folder background (right-click inside a folder)
+[HKEY_CLASSES_ROOT\Directory\Background\shell\OpenWithClaudeGUI]
+@="Open with ClaudeGUI"
+"Icon"="C:\\Users\\eclip\\Desktop\\CLAUDE_GUI\\assets\\icons\\icon.ico"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\OpenWithClaudeGUI\command]
+@="\"C:\\Users\\eclip\\Desktop\\CLAUDE_GUI\\node_modules\\electron\\dist\\electron.exe\" \"C:\\Users\\eclip\\Desktop\\CLAUDE_GUI\" --cwd \"%V\""
+
+; Context menu for drives
+[HKEY_CLASSES_ROOT\Drive\shell\OpenWithClaudeGUI]
+@="Open with ClaudeGUI"
+"Icon"="C:\\Users\\eclip\\Desktop\\CLAUDE_GUI\\assets\\icons\\icon.ico"
+
+[HKEY_CLASSES_ROOT\Drive\shell\OpenWithClaudeGUI\command]
+@="\"C:\\Users\\eclip\\Desktop\\CLAUDE_GUI\\node_modules\\electron\\dist\\electron.exe\" \"C:\\Users\\eclip\\Desktop\\CLAUDE_GUI\" --cwd \"%V\""
